@@ -25,3 +25,31 @@ public class MajorityElement {
         System.out.println(majority(nums));
     }
 }
+
+
+class Solution {
+    public int winningPlayerCount(int n, int[][] pick) {
+        Map<Integer, Integer>[] counting = new HashMap[n];
+
+        for(int i=0; i<n; i++){
+            counting[i] = new HashMap<>();
+        }
+
+        for(int[] p : pick){
+            int playerIdx = p[0];
+            int pickedColor = p[1];
+            counting[playerIdx].put(pickedColor, counting[playerIdx].getOrDefault(pickedColor, 0)+1);
+        }
+
+        int wins = 0;
+        for(int i =0; i<n; i++){
+            for(int c : counting[i].values()){
+                if(c > i){
+                    wins++;
+                    break;
+                }
+            }
+        }
+        return wins;
+    }
+}
